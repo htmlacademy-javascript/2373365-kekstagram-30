@@ -26,3 +26,7 @@ const getNumder = (charset) => {
   }
   return newString === '' ? NaN : newString;
 };
+
+lengthStringCheck('54hrth', 10);
+isItPalindrome('tenet');
+getNumder('454tgfdfhy6');
