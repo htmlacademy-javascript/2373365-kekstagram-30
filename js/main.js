@@ -77,7 +77,7 @@ const createComment = () => ({
   name: getRandomArrayElement(COMMENTATORS_NAMES),
 });
 
-const createPhotoDescriptions = (PHOTOS_COUNT) => {
+createPhotoDescriptions = () => {
   const unicPhotoId = createUnicId(1, PHOTOS_COUNT);
   const unicUrlId = createUnicId(1, PHOTOS_COUNT);
   const createPhotoDescription = () => ({
