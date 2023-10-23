@@ -89,4 +89,6 @@ const createPhotoDescription = () => ({
 });
 
 const createPhotos = () =>
-   Array.from({length: PHOTOS_COUNT}, createPhotoDescription);
+  Array.from({length: PHOTOS_COUNT}, createPhotoDescription);
+
+(createPhotos());
