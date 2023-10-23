@@ -61,7 +61,7 @@ const createUnicId = (min, max) => {
     previousValues.push(currentValue);
     return currentValue;
   };
-}
+};
 
 const createMessage = () => Array.from(
   {length: getRandomInteger(1, 2)},
@@ -71,13 +71,13 @@ const createMessage = () => Array.from(
 const unicCommentId = createUnicId(1, 700);
 
 const createComment = () => ({
-    id: unicCommentId(),
-    avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
-    message: createMessage(),
-    name: getRandomArrayElement(COMMENTATORS_NAMES),
+  id: unicCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  message: createMessage(),
+  name: getRandomArrayElement(COMMENTATORS_NAMES),
 });
 
-const createPhotoDescriptions = (X) => {
+const createPhotoDescriptions = (PHOTOS_COUNT) => {
   const unicPhotoId = createUnicId(1, PHOTOS_COUNT);
   const unicUrlId = createUnicId(1, PHOTOS_COUNT);
   const createPhotoDescription = () => ({
@@ -87,7 +87,5 @@ const createPhotoDescriptions = (X) => {
     likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
     comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment),
   });
-  return Array.from({length: X}, createPhotoDescription);
-}
-
-const createPhotosArray = createPhotoDescriptions(PHOTOS_COUNT);
+  return Array.from({length: PHOTOS_COUNT}, createPhotoDescription);
+};
