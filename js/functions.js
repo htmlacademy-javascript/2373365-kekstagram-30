@@ -12,6 +12,7 @@ const isWithinWorkingDay = (workStart, workEnd, meetingStart, meetingDuration) =
   return meetingStartinMinutes >= workStartinMinutes && meetingEndinMinutes <= workEndinMinutes;
 };
 
+export {isWithinWorkingDay};
 // Проверка
 // console.log(isWithinWorkingDay('08:00', '17:30', '14:00', 90));
 // console.log(isWithinWorkingDay('8:0', '10:0', '8:0', 120));
