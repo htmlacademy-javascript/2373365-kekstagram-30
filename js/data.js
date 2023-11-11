@@ -40,10 +40,12 @@ const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
 
-const createMessage = () => Array.from(
-  {length: getRandomInteger(1, 2)},
-  () => getRandomArrayElement(COMMENT_LINES),
+const createMessage = () => {
+  Array.from({
+    length: getRandomInteger(1, 2)},
+    () => getRandomArrayElement(COMMENT_LINES),
 ).join(' ');
+};
 
 const unicCommentId = createUnicId(1, 700);
 
@@ -62,10 +64,17 @@ const createPhotoDescription = () => ({
   url: `photos/${unicUrlId()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment),
+  comments: Array.from({
+    length: getRandomInteger(0, COMMENT_COUNT)
+  }, createComment),
 });
 
-const createPhotos = () =>
-  Array.from({length: PHOTOS_COUNT}, createPhotoDescription);
+const createPhotos = () => {
+  Array.from({
+    length: PHOTOS_COUNT
+  }, createPhotoDescription)
+};
 
-export {createPhotos};
+export {
+  createPhotos
+};
