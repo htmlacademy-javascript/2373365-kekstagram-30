@@ -23,4 +23,4 @@ const createUnicId = (min, max) => {
   };
 };
 
-export {getRandomInteger, createUnicId, getRandomArrayElement};
+export { getRandomInteger, createUnicId, getRandomArrayElement };
