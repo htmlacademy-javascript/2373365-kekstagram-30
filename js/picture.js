@@ -54,6 +54,7 @@ const hidePicture = () => {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
 };
 
 const onClosePictureButtonClick = () => {
@@ -78,6 +79,7 @@ const showPicture = (pictureData) => {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
   comments = pictureData.comments;
   if (comments.length >= 0) {
@@ -88,6 +90,5 @@ const showPicture = (pictureData) => {
 };
 
 closePictureButtonElement.addEventListener('click', onClosePictureButtonClick);
-commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export { showPicture };
