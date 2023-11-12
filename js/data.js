@@ -34,16 +34,17 @@ const DESCRIPTIONS = [
   'Осенний парк с разноцветными деревьями, окутанными золотистым туманом.',
 ];
 
-const PHOTOS_COUNT = 25;
+const PICTURE_COUNT = 25;
 const COMMENT_COUNT = 30;
 const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
 
-const createMessage = () => Array.from(
-  {length: getRandomInteger(1, 2)},
+const createMessage = () =>
+  Array.from({
+    length: getRandomInteger(1, 2)},
   () => getRandomArrayElement(COMMENT_LINES),
-).join(' ');
+  ).join(' ');
 
 const unicCommentId = createUnicId(1, 700);
 
@@ -54,18 +55,22 @@ const createComment = () => ({
   name: getRandomArrayElement(COMMENTATORS_NAMES),
 });
 
-const unicPhotoId = createUnicId(1, PHOTOS_COUNT);
-const unicUrlId = createUnicId(1, PHOTOS_COUNT);
+const unicPictureId = createUnicId(1, PICTURE_COUNT);
+const unicUrlId = createUnicId(1, PICTURE_COUNT);
 
-const createPhotoDescription = () => ({
-  id: unicPhotoId(),
+const createPictureDescription = () => ({
+  id: unicPictureId(),
   url: `photos/${unicUrlId()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({length: getRandomInteger(0, COMMENT_COUNT)}, createComment),
+  comments: Array.from({
+    length: getRandomInteger(0, COMMENT_COUNT)
+  }, createComment),
 });
 
-const createPhotos = () =>
-  Array.from({length: PHOTOS_COUNT}, createPhotoDescription);
+const createPictures = () =>
+  Array.from({
+    length: PICTURE_COUNT
+  }, createPictureDescription);
 
-export {createPhotos};
+export { createPictures };
