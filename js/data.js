@@ -40,12 +40,11 @@ const AVATAR_COUNT = 6;
 const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
 
-const createMessage = () => {
-  return Array.from({
+const createMessage = () =>
+  Array.from({
     length: getRandomInteger(1, 2)},
     () => getRandomArrayElement(COMMENT_LINES),
-).join(' ')
-};
+).join(' ');
 
 const unicCommentId = createUnicId(1, 700);
 
@@ -69,10 +68,9 @@ const createPictureDescription = () => ({
   }, createComment),
 });
 
-const createPictures = () => {
-  return Array.from({
+const createPictures = () =>
+  Array.from({
     length: PICTURE_COUNT
-  }, createPictureDescription)
-};
+  }, createPictureDescription);
 
 export { createPictures };
