@@ -42,9 +42,9 @@ const LIKE_MAX_COUNT = 200;
 
 const createMessage = () =>
   Array.from({
-  length: getRandomInteger(1, 2)},
+    length: getRandomInteger(1, 2)},
   () => getRandomArrayElement(COMMENT_LINES),
-).join(' ');
+  ).join(' ');
 
 const unicCommentId = createUnicId(1, 700);
 
@@ -70,7 +70,7 @@ const createPictureDescription = () => ({
 
 const createPictures = () =>
   Array.from({
-  length: PICTURE_COUNT
-}, createPictureDescription);
+    length: PICTURE_COUNT
+  }, createPictureDescription);
 
 export { createPictures };
