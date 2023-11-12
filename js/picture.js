@@ -80,7 +80,7 @@ const showPicture = (pictureData) => {
   document.addEventListener('keydown', onDocumentKeydown);
 
   comments = pictureData.comments;
-  if (comments.length > 0) {
+  if (comments.length >= 0) {
     renderComments();
   }
 
