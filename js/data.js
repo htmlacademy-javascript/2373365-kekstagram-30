@@ -41,7 +41,7 @@ const LIKE_MIN_COUNT = 15;
 const LIKE_MAX_COUNT = 200;
 
 const createMessage = () => {
-  Array.from({
+  return Array.from({
     length: getRandomInteger(1, 2)},
     () => getRandomArrayElement(COMMENT_LINES),
 ).join(' ')
