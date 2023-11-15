@@ -1,3 +1,4 @@
+import './form.js';
 import { createPictures } from './data.js';
 import { renderGallery } from './gallery.js';
 
