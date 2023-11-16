@@ -74,7 +74,6 @@ let chosenEffect = effects.DEFAULT;
 
 const isDefault = () => chosenEffect === effects.DEFAULT;
 
-
 const showSlider = () => {
   sliderContainerElement.classList.remove('hidden');
 };
@@ -137,8 +136,8 @@ const setEffect = (effect) => {
   setImageStyle();
 };
 
-const reset = () => {
-  setEffect(effects.DEFAULT);
+const destroy = () => {
+  sliderElement.noUiSlider.destroy();
 };
 
 const onEffectsChange = (evt) => {
@@ -150,4 +149,4 @@ const init = () => {
   effectsElement.addEventListener('change', onEffectsChange);
 };
 
-export { init, reset };
+export { init, destroy };
