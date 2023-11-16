@@ -19,17 +19,34 @@ const cancelButton = form.querySelector('.img-upload__cancel');
 const fileField = form.querySelector('.img-upload__input');
 const hashtagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
+const inputWrapper = form.querySelector('.img-upload__field-wrapper input');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper__error',
+  errorTextClass: 'img-upload__field-wrapper--error',
 });
+
+const onInputWrapperChange = () => {
+  if (pristine.validate()) {
+    submitButton.disabled = false;
+  } else {
+    submitButton.disabled = true;
+  }
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  pristine.validate();
+};
 
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  inputWrapper.addEventListener('change', onInputWrapperChange);
+  form.addEventListener('submit', onFormSubmit);
 };
 
 const hideModal = () => {
@@ -40,6 +57,8 @@ const hideModal = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  inputWrapper.removeEventListener('change', onInputWrapperChange);
+  form.removeEventListener('submit', onFormSubmit);
 };
 
 const isTextFieldFocused = () =>
@@ -51,7 +70,7 @@ const normalizeTags = (tagString) => tagString
   .split(' ')
   .filter((tag) => Boolean(tag.length));
 
-const hasValidTags = (value) => normalizeTags(value).every((tag) => VALID_SYMBOLS.text(tag));
+const hasValidTags = (value) => normalizeTags(value).every((tag) => VALID_SYMBOLS.test(tag));
 
 const hasUniqueTags = (value) => {
   const lowerCaseTags = normalizeTags(value).map((tag) => tag.toLowerCase());
@@ -74,12 +93,6 @@ const onCancelButtonClick = () => {
 const onFileInputChange = () => {
   showModal();
 };
-
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-};
-
 
 pristine.addValidator(
   hashtagField,
@@ -107,6 +120,5 @@ pristine.addValidator(
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
 initEffect();
 
