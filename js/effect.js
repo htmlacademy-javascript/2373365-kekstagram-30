@@ -77,6 +77,7 @@ const isDefault = () => chosenEffect === effects.DEFAULT;
 const setImageStyle = () => {
   if (isDefault()) {
     imageElement.style.filter = null;
+    sliderContainerElement.classList.add('hidden');
     return;
   }
 
