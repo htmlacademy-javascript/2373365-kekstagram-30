@@ -4,11 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="vendor/nouislider/nouislider.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <script src="/js/main.js" type="module"></script>'
-  <script src="/js/functions.js"></script>'
   <title>Кекстаграм</title>
 </head>
 
@@ -34,7 +33,7 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" autocomplete="off">
+          <form class="img-upload__form" id="upload-select-image" autocomplete="off" method="post" action="https://30.javascript.pages.academy/kekstagram" enctype="multipart/form-data">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
@@ -130,7 +129,9 @@
                     <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
                   </div>
                   <div class="img-upload__field-wrapper">
-                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..."
+                    data-pristine-maxlength="140"
+                    data-pristine-maxlength-message="Комментарий не может быть длиннее 140 символов"></textarea>
                   </div>
                 </fieldset>
 
@@ -263,6 +264,9 @@
     </li>
   </template>
 
+  <script src="/vendor/nouislider/nouislider.js"></script>
+  <script src="/vendor/pristine/pristine.min.js"></script>
+  <script src="/js/main.js" type="module"></script>
 </body>
 
 </html>

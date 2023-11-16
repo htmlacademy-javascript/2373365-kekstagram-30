@@ -1,4 +1,4 @@
-import {getRandomInteger, createUnicId, getRandomArrayElement} from './util.js';
+import { getRandomInteger, createUnicId, getRandomArrayElement } from './util.js';
 
 const COMMENTATORS_NAMES = [
   'Иван Иванов',
