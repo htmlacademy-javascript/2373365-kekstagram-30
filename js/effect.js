@@ -74,18 +74,6 @@ let chosenEffect = effects.DEFAULT;
 
 const isDefault = () => chosenEffect === effects.DEFAULT;
 
-const setImageStyle = () => {
-  if (isDefault()) {
-    imageElement.style.filter = null;
-    sliderContainerElement.classList.add('hidden');
-    return;
-  }
-
-  const { value } = effectLevelElement;
-  const { style, unit } = effectStyles[chosenEffect];
-  imageElement.style.filter = `${style}(${value}${unit})`;
-};
-
 
 const showSlider = () => {
   sliderContainerElement.classList.remove('hidden');
@@ -93,6 +81,18 @@ const showSlider = () => {
 
 const hideSlider = () => {
   sliderContainerElement.classList.add('hidden');
+};
+
+const setImageStyle = () => {
+  if (isDefault()) {
+    imageElement.style.filter = null;
+    hideSlider();
+    return;
+  }
+
+  const { value } = effectLevelElement;
+  const { style, unit } = effectStyles[chosenEffect];
+  imageElement.style.filter = `${style}(${value}${unit})`;
 };
 
 const onSliderUpdate = () => {
