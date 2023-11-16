@@ -1,4 +1,4 @@
-const Effects = {
+const effects = {
   DEFAULT: 'none',
   CHROME: 'chrome',
   SEPIA: 'sepia',
