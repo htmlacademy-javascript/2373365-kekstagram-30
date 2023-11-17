@@ -74,24 +74,24 @@ let chosenEffect = effects.DEFAULT;
 
 const isDefault = () => chosenEffect === effects.DEFAULT;
 
-const setImageStyle = () => {
-  if (isDefault()) {
-    imageElement.style.filter = null;
-    return;
-  }
-
-  const { value } = effectLevelElement;
-  const { style, unit } = effectStyles[chosenEffect];
-  imageElement.style.filter = `${style}(${value}${unit})`;
-};
-
-
 const showSlider = () => {
   sliderContainerElement.classList.remove('hidden');
 };
 
 const hideSlider = () => {
   sliderContainerElement.classList.add('hidden');
+};
+
+const setImageStyle = () => {
+  if (isDefault()) {
+    imageElement.style.filter = null;
+    hideSlider();
+    return;
+  }
+
+  const { value } = effectLevelElement;
+  const { style, unit } = effectStyles[chosenEffect];
+  imageElement.style.filter = `${style}(${value}${unit})`;
 };
 
 const onSliderUpdate = () => {
@@ -136,8 +136,8 @@ const setEffect = (effect) => {
   setImageStyle();
 };
 
-const reset = () => {
-  setEffect(effects.DEFAULT);
+const destroy = () => {
+  sliderElement.noUiSlider.destroy();
 };
 
 const onEffectsChange = (evt) => {
@@ -149,4 +149,4 @@ const init = () => {
   effectsElement.addEventListener('change', onEffectsChange);
 };
 
-export { init, reset };
+export { init, destroy };

@@ -1,6 +1,6 @@
 import {
   init as initEffect,
-  reset as resetEffect
+  destroy as destroyEffect
 } from './effect.js';
 import { resetScale } from './scale.js';
 
@@ -47,12 +47,13 @@ const showModal = () => {
   document.addEventListener('keydown', onDocumentKeydown);
   inputWrapper.addEventListener('change', onInputWrapperChange);
   form.addEventListener('submit', onFormSubmit);
+  initEffect();
 };
 
 const hideModal = () => {
   form.reset();
   pristine.reset();
-  resetEffect();
+  destroyEffect();
   resetScale();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -120,5 +121,5 @@ pristine.addValidator(
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-initEffect();
+
 
