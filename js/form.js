@@ -20,7 +20,6 @@ const fileField = form.querySelector('.img-upload__input');
 const hashtagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
-const inputWrapper = form.querySelector('.img-upload__field-wrapper input');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -28,7 +27,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-const onInputWrapperChange = () => {
+const onTextChange = () => {
   if (pristine.validate()) {
     submitButton.disabled = false;
   } else {
@@ -36,16 +35,11 @@ const onInputWrapperChange = () => {
   }
 };
 
-const onFormSubmit = () => {
-  pristine.validate();
-};
-
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  inputWrapper.addEventListener('change', onInputWrapperChange);
-  form.addEventListener('submit', onFormSubmit);
+  form.addEventListener('change', onTextChange);
   initEffect();
 };
 
@@ -57,8 +51,7 @@ const hideModal = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  inputWrapper.removeEventListener('change', onInputWrapperChange);
-  form.removeEventListener('submit', onFormSubmit);
+  form.removeEventListener('change', onTextChange);
 };
 
 const isTextFieldFocused = () =>
