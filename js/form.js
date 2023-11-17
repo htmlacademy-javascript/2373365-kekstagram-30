@@ -36,8 +36,7 @@ const onInputWrapperChange = () => {
   }
 };
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
+const onFormSubmit = () => {
   pristine.validate();
 };
 
