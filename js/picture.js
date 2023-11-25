@@ -49,25 +49,6 @@ const onCommentsLoaderClick = () => {
   renderComments();
 };
 
-const hidePicture = () => {
-  commentsCountShown = 0;
-  bigPictureElement.classList.add('hidden');
-  bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
-};
-
-const onClosePictureButtonClick = () => {
-  hidePicture();
-};
-
-function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hidePicture();
-  }
-}
-
 const renderPicture = ({ url, description, likes }) => {
   bigPictureElement.querySelector('.big-picture__img img').src = url;
   bigPictureElement.querySelector('.big-picture__img img').alt = description;
@@ -80,6 +61,7 @@ const showPicture = (pictureData) => {
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
+  closePictureButtonElement.addEventListener('click', onClosePictureButtonClick);
 
   comments = pictureData.comments;
   if (comments.length >= 0) {
@@ -89,6 +71,24 @@ const showPicture = (pictureData) => {
   renderPicture(pictureData);
 };
 
-closePictureButtonElement.addEventListener('click', onClosePictureButtonClick);
+const hidePicture = () => {
+  commentsCountShown = 0;
+  bigPictureElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  commentsLoaderElement.removeEventListener('click', onCommentsLoaderClick);
+  closePictureButtonElement.removeEventListener('click', onClosePictureButtonClick);
+};
+
+function onClosePictureButtonClick() {
+  hidePicture();
+}
+
+function onDocumentKeydown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hidePicture();
+  }
+}
 
 export { showPicture };

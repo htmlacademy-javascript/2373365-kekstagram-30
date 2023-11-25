@@ -1,8 +1,10 @@
+import { sendPictures } from './api.js';
 import {
   init as initEffect,
   destroy as destroyEffect
 } from './effect.js';
 import { resetScale } from './scale.js';
+import { showErrorMessage, showSuccessMessage } from './message.js';
 
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -10,6 +12,11 @@ const ErrorText = {
   INVALID_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштегов`,
   NOT_UNIQUE: 'Хэштеги должны быть уникальными',
   INVALID_PATTERN: 'Неправильный хэштег',
+};
+
+const SubmitButtonCaption = {
+  SUBMITTING: 'Отправляю...',
+  IDLE: 'Опубликовать',
 };
 
 const body = document.querySelector('body');
@@ -27,7 +34,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-const onTextChange = () => {
+const submitButtonDisable = () => {
   if (pristine.validate()) {
     submitButton.disabled = false;
   } else {
@@ -35,11 +42,27 @@ const onTextChange = () => {
   }
 };
 
+const onTextChange = () => {
+  submitButtonDisable();
+};
+
+const toggleSubmitButton = (isDisabled) => {
+  submitButton.disabled = isDisabled;
+
+  if (isDisabled) {
+    submitButton.textContent = SubmitButtonCaption.SUBMITTING;
+  } else {
+    submitButton.textContent = SubmitButtonCaption.IDLE;
+  }
+};
+
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
   form.addEventListener('change', onTextChange);
+  cancelButton.addEventListener('click', onCancelButtonClick);
+  document.addEventListener('keydown', onDocumentKeydown);
+  form.addEventListener('submit', onFormSubmit);
   initEffect();
 };
 
@@ -50,8 +73,10 @@ const hideModal = () => {
   resetScale();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
   form.removeEventListener('change', onTextChange);
+  cancelButton.removeEventListener('click', onCancelButtonClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
+  form.removeEventListener('submit', onFormSubmit);
 };
 
 const isTextFieldFocused = () =>
@@ -72,16 +97,36 @@ const hasUniqueTags = (value) => {
 
 const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAG_COUNT;
 
+const sendForm = async (formElement) => {
+  try {
+    toggleSubmitButton(true);
+    await sendPictures(new FormData(formElement));
+    toggleSubmitButton(false);
+    hideModal();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+    toggleSubmitButton(false);
+  }
+};
+
+function onFormSubmit(evt) {
+  evt.preventDefault();
+  sendForm(evt.target);
+}
+
+const isErrorMessageExists = () => Boolean(document.querySelector('.error'));
+
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModal();
   }
 }
 
-const onCancelButtonClick = () => {
+function onCancelButtonClick() {
   hideModal();
-};
+}
 
 const onFileInputChange = () => {
   showModal();
@@ -112,6 +157,4 @@ pristine.addValidator(
 );
 
 fileField.addEventListener('change', onFileInputChange);
-cancelButton.addEventListener('click', onCancelButtonClick);
-
 
