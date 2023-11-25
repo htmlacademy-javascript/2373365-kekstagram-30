@@ -59,7 +59,7 @@ const toggleSubmitButton = (isDisabled) => {
 const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  form.addEventListener('change', onTextChange);
+  form.addEventListener('input', onTextChange);
   cancelButton.addEventListener('click', onCancelButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   form.addEventListener('submit', onFormSubmit);
@@ -73,7 +73,7 @@ const hideModal = () => {
   resetScale();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  form.removeEventListener('change', onTextChange);
+  form.removeEventListener('input', onTextChange);
   cancelButton.removeEventListener('click', onCancelButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
   form.removeEventListener('submit', onFormSubmit);
