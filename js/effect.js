@@ -137,6 +137,7 @@ const setEffect = (effect) => {
 };
 
 const destroy = () => {
+  setEffect(effects.DEFAULT);
   sliderElement.noUiSlider.destroy();
 };
 
