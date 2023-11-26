@@ -5,6 +5,7 @@ import {
 } from './effect.js';
 import { resetScale } from './scale.js';
 import { showErrorMessage, showSuccessMessage } from './message.js';
+import { onKeyDownEscape } from './util.js';
 
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -118,7 +119,7 @@ function onFormSubmit(evt) {
 const isErrorMessageExists = () => Boolean(document.querySelector('.error'));
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
+  if (onKeyDownEscape(evt) && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModal();
   }

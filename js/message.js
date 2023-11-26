@@ -1,3 +1,5 @@
+import { onKeyDownEscape } from './util.js';
+
 const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 const successMessageTemplate = document
@@ -44,7 +46,7 @@ function onCloseButtonClick() {
 }
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
+  if (onKeyDownEscape(evt)) {
     evt.preventDefault();
     hideMessage();
   }
