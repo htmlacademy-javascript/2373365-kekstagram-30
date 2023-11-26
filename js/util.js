@@ -2,7 +2,7 @@ const onKeyDownEscape = (evt) => evt.key === 'Escape';
 
 const getRandomIndex = (min, max) => Math.floor(Math.random() * (max - min));
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay) {
   let timeoutId;
 
   return (...rest) => {

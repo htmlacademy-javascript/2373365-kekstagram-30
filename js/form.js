@@ -146,8 +146,6 @@ const onFileInputChange = () => {
       preview.style.backgroundImage = `url('${photoPreview.src}')`;
     });
     showModal();
-  } else {
-    showErrorMessage();
   }
 };
 
