@@ -145,10 +145,10 @@ const onFileInputChange = () => {
     effectsPreviews.forEach((preview) => {
       preview.style.backgroundImage = `url('${photoPreview.src}')`;
     });
+    showModal();
   } else {
     showErrorMessage();
   }
-  showModal();
 };
 
 pristine.addValidator(
