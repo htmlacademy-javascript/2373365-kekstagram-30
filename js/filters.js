@@ -1,4 +1,4 @@
-import { renderGallery } from './gallery.js';
+import { renderThumbnails } from './thumbnail.js';
 import { debounce, getRandomIndex } from './util.js';
 
 const filtersEl = document.querySelector('.img-filters');
@@ -6,6 +6,7 @@ const filterForm = document.querySelector('.img-filters__form');
 const defaultBtn = filterForm.querySelector('#filter-default');
 const randomBtn = filterForm.querySelector('#filter-random');
 const discussedBtn = filterForm.querySelector('#filter-discussed');
+const container = document.querySelector('.pictures');
 
 const MAX_RANDOM_FILTER = 10;
 const RERENDER_DELAY = 500;
@@ -40,7 +41,7 @@ const clearGallery = () => {
 
 const reRenderGallery = (filter, data) => {
   const filteredData = filterHandlers[filter](data);
-  renderGallery(filteredData);
+  renderThumbnails (filteredData, container);
 };
 
 const repaint = (evt, filter, data) => {

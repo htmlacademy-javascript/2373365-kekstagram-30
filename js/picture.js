@@ -41,8 +41,8 @@ const renderComments = () => {
   commentsListElement.innerHTML = '';
   commentsListElement.append(fragment);
 
-  commentCountElement.textContent = commentsCountShown;
-  totalCommentCountElement.textContent = comments.length;
+  commentCountElement.textContent = commentsCountShown.toString();
+  totalCommentCountElement.textContent = comments.length.toString();
 };
 
 const onCommentsLoaderClick = () => {
@@ -91,4 +91,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export { showPicture };
+export { showPicture, hidePicture };
