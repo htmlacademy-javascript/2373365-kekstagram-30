@@ -1,5 +1,5 @@
 import { sendPictures } from './api.js';
-import { resetEffect } from './effect.js';
+import { resetEffect, initEffect } from './effect.js';
 import { resetScale } from './scale.js';
 import { showErrorMessage, showSuccessMessage } from './message.js';
 import { onKeyDownEscape } from './util.js';
@@ -58,6 +58,7 @@ const toggleSubmitButton = (isDisabled) => {
 };
 
 const showModal = () => {
+  initEffect();
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   form.addEventListener('input', onTextChange);

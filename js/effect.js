@@ -85,7 +85,6 @@ const hideSlider = () => {
 const setImageStyle = () => {
   if (isDefault()) {
     imageElement.style.filter = null;
-    hideSlider();
     return;
   }
 
@@ -111,6 +110,7 @@ const createSlider = ({ min, max, step }) => {
     }
   });
   sliderElement.noUiSlider.on('update', onSliderUpdate);
+  hideSlider();
 };
 
 const updateSlider = ({ min, max, step }) => {
@@ -138,6 +138,7 @@ const setEffect = (effect) => {
 
 const resetEffect = () => {
   setEffect(effects.DEFAULT);
+  sliderElement.noUiSlider.destroy();
 };
 
 const onEffectsChange = (evt) => {
