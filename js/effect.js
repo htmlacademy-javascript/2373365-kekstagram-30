@@ -107,11 +107,17 @@ const createSlider = ({ min, max, step }) => {
     start: max,
     connect: 'lower',
     format: {
-      to: (value) => Number(value),
-      from: (value) => Number(value),
+      to: function (value) {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
     }
   });
-  sliderElement.noUiSlider.on('update', onSliderUpdate);
   hideSlider();
 };
 
@@ -121,6 +127,7 @@ const updateSlider = ({ min, max, step }) => {
     step,
     start: max,
   });
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
 };
 
 const setSlider = () => {
