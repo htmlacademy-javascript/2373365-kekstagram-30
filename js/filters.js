@@ -11,7 +11,7 @@ const MAX_RANDOM_FILTER = 10;
 const RERENDER_DELAY = 500;
 
 const FilterEnum = {
-  DEFAULT: 'default',
+  DEFAULT: 'random',
   RANDOM: 'random',
   DISCUSSED: 'discussed',
 };
