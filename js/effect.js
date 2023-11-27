@@ -70,6 +70,8 @@ const sliderElement = modalElement.querySelector('.effect-level__slider');
 const sliderContainerElement = modalElement.querySelector('.img-upload__effect-level');
 const effectLevelElement = modalElement.querySelector('.effect-level__value');
 
+const isNoUiExists = () => Boolean(modalElement.querySelector('.noUi-target'));
+
 let chosenEffect = effects.DEFAULT;
 
 const isDefault = () => chosenEffect === effects.DEFAULT;
@@ -85,13 +87,12 @@ const hideSlider = () => {
 const setImageStyle = () => {
   if (isDefault()) {
     imageElement.style.filter = null;
-    hideSlider();
     return;
   }
 
   const { value } = effectLevelElement;
   const { style, unit } = effectStyles[chosenEffect];
-  imageElement.style.filter = `${style}(${value}${unit})`;
+  imageElement.style.filter = `${ style }(${ value }${ unit })`;
 };
 
 const onSliderUpdate = () => {
@@ -111,6 +112,7 @@ const createSlider = ({ min, max, step }) => {
     }
   });
   sliderElement.noUiSlider.on('update', onSliderUpdate);
+  hideSlider();
 };
 
 const updateSlider = ({ min, max, step }) => {
@@ -136,7 +138,7 @@ const setEffect = (effect) => {
   setImageStyle();
 };
 
-const destroy = () => {
+const resetEffect = () => {
   setEffect(effects.DEFAULT);
   sliderElement.noUiSlider.destroy();
 };
@@ -145,9 +147,11 @@ const onEffectsChange = (evt) => {
   setEffect(evt.target.value);
 };
 
-const init = () => {
-  createSlider(effectToSliderOptions[chosenEffect]);
-  effectsElement.addEventListener('change', onEffectsChange);
+const initEffect = () => {
+  if (!isNoUiExists()) {
+    createSlider(effectToSliderOptions[chosenEffect]);
+    effectsElement.addEventListener('change', onEffectsChange);
+  }
 };
 
-export { init, destroy };
+export { initEffect, resetEffect };
