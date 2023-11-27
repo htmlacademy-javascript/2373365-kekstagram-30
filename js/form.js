@@ -37,25 +37,18 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-const submitButtonDisable = () => {
-  if (pristine.validate()) {
-    submitButton.disabled = false;
-  } else {
+const onTextChange = () => {
+  submitButton.disabled = false;
+  if (!pristine.validate()) {
     submitButton.disabled = true;
   }
 };
 
-const onTextChange = () => {
-  submitButtonDisable();
-};
-
 const toggleSubmitButton = (isDisabled) => {
   submitButton.disabled = isDisabled;
-
+  submitButton.textContent = SubmitButtonCaption.IDLE;
   if (isDisabled) {
     submitButton.textContent = SubmitButtonCaption.SUBMITTING;
-  } else {
-    submitButton.textContent = SubmitButtonCaption.IDLE;
   }
 };
 

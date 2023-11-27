@@ -118,6 +118,7 @@ const createSlider = ({ min, max, step }) => {
       },
     }
   });
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
   hideSlider();
 };
 
@@ -127,7 +128,6 @@ const updateSlider = ({ min, max, step }) => {
     step,
     start: max,
   });
-  sliderElement.noUiSlider.on('update', onSliderUpdate);
 };
 
 const setSlider = () => {
