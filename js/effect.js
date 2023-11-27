@@ -70,6 +70,8 @@ const sliderElement = modalElement.querySelector('.effect-level__slider');
 const sliderContainerElement = modalElement.querySelector('.img-upload__effect-level');
 const effectLevelElement = modalElement.querySelector('.effect-level__value');
 
+const isNoUiExists = () => Boolean(modalElement.querySelector('.noUi-target'));
+
 let chosenEffect = effects.DEFAULT;
 
 const isDefault = () => chosenEffect === effects.DEFAULT;
@@ -146,8 +148,10 @@ const onEffectsChange = (evt) => {
 };
 
 const initEffect = () => {
-  createSlider(effectToSliderOptions[chosenEffect]);
-  effectsElement.addEventListener('change', onEffectsChange);
+  if (!isNoUiExists()) {
+    createSlider(effectToSliderOptions[chosenEffect]);
+    effectsElement.addEventListener('change', onEffectsChange);
+  }
 };
 
 export { initEffect, resetEffect };
