@@ -1,8 +1,5 @@
 import { sendPictures } from './api.js';
-import {
-  init as initEffect,
-  destroy as destroyEffect
-} from './effect.js';
+import { resetEffect } from './effect.js';
 import { resetScale } from './scale.js';
 import { showErrorMessage, showSuccessMessage } from './message.js';
 import { onKeyDownEscape } from './util.js';
@@ -67,13 +64,12 @@ const showModal = () => {
   cancelButton.addEventListener('click', onCancelButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   form.addEventListener('submit', onFormSubmit);
-  initEffect();
 };
 
 const hideModal = () => {
   form.reset();
   pristine.reset();
-  destroyEffect();
+  resetEffect();
   resetScale();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');

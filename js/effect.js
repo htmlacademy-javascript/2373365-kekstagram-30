@@ -136,18 +136,17 @@ const setEffect = (effect) => {
   setImageStyle();
 };
 
-const destroy = () => {
+const resetEffect = () => {
   setEffect(effects.DEFAULT);
-  sliderElement.noUiSlider.destroy();
 };
 
 const onEffectsChange = (evt) => {
   setEffect(evt.target.value);
 };
 
-const init = () => {
+const initEffect = () => {
   createSlider(effectToSliderOptions[chosenEffect]);
   effectsElement.addEventListener('change', onEffectsChange);
 };
 
-export { init, destroy };
+export { initEffect, resetEffect };
