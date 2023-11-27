@@ -5,10 +5,12 @@ import { showErrorMessage, showSuccessMessage } from './message.js';
 import { onKeyDownEscape } from './util.js';
 
 const MAX_HASHTAG_COUNT = 5;
+const MAX_COMMENT_COUNT = 140;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const ErrorText = {
-  INVALID_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштегов`,
+  INVALID_HASHTAG_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштегов`,
+  INVALID_COMMENT_COUNT: `Комментарий не может быть длиннее ${MAX_COMMENT_COUNT} символов`,
   NOT_UNIQUE: 'Хэштеги должны быть уникальными',
   INVALID_PATTERN: 'Неправильный хэштег',
 };
@@ -72,12 +74,12 @@ const hideModal = () => {
   pristine.reset();
   resetEffect();
   resetScale();
-  overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   form.removeEventListener('input', onTextChange);
   cancelButton.removeEventListener('click', onCancelButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
   form.removeEventListener('submit', onFormSubmit);
+  overlay.classList.add('hidden');
 };
 
 const isTextFieldFocused = () =>
@@ -96,7 +98,9 @@ const hasUniqueTags = (value) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAG_COUNT;
+const hasValidHashtagCount = (value) => normalizeTags(value).length <= MAX_HASHTAG_COUNT;
+
+const hasValidCommentCount = (value) => (value).length <= MAX_COMMENT_COUNT;
 
 const sendForm = async (formElement) => {
   try {
@@ -131,7 +135,7 @@ function onCancelButtonClick() {
 
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
-  return FILE_TYPES.some((it) => fileName.endsWith(it));
+  return FILE_TYPES.some((fileType) => fileName.endsWith(fileType));
 };
 
 const onFileInputChange = () => {
@@ -164,9 +168,17 @@ pristine.addValidator(
 
 pristine.addValidator(
   hashtagField,
-  hasValidCount,
-  ErrorText.INVALID_COUNT,
+  hasValidHashtagCount,
+  ErrorText.INVALID_HASHTAG_COUNT,
   3,
+  true
+);
+
+pristine.addValidator(
+  commentField,
+  hasValidCommentCount,
+  ErrorText.INVALID_COMMENT_COUNT,
+  4,
   true
 );
 

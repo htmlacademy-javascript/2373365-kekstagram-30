@@ -27,11 +27,14 @@ const showDataErrorMessage = () => {
 };
 
 const hideMessage = () => {
-  const existsElement = document.querySelector('.success') || document.querySelector('.error');
-  existsElement.remove();
-  document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('click', onCloseButtonClick);
-  document.body.removeEventListener('click', onBodyClick);
+  const messageElement = document.querySelector('.success') || document.querySelector('.error');
+  const isMessageElementExixts = () => Boolean(messageElement);
+  if (isMessageElementExixts) {
+    messageElement.remove();
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onCloseButtonClick);
+    document.body.removeEventListener('click', onBodyClick);
+  }
 };
 
 const showMessage = (element, buttonClass) => {
