@@ -9,7 +9,7 @@ const discussedBtn = filterForm.querySelector('#filter-discussed');
 const container = document.querySelector('.pictures');
 
 const MAX_RANDOM_FILTER = 10;
-const RERENDER_DELAY = 500;
+const REPAINT_DELAY = 500;
 
 const FilterEnum = {
   DEFAULT: 'default',
@@ -32,43 +32,44 @@ const filterHandlers = {
   [FilterEnum.DISCUSSED]: (data) => [...data].sort((item1, item2) => (item2.comments.length - item1.comments.length)),
 };
 
-let currentfilter = FilterEnum.DEFAULT;
+let activeButton = defaultBtn;
 
-const clearGallery = () => {
+const changeClasses = (button) => {
+  activeButton.classList.remove('img-filters__button--active');
+  button.classList.add('img-filters__button--active');
+  activeButton = button;
+};
+
+const clearThumbnails = () => {
   const pictures = document.querySelectorAll('.picture');
   pictures.forEach((item) => item.remove());
 };
 
-const reRenderGallery = (filter, data) => {
+const reRenderThumbnails = (filter, data) => {
   const filteredData = filterHandlers[filter](data);
-  renderThumbnails (filteredData, container);
+  clearThumbnails();
+  renderThumbnails(filteredData, container);
 };
 
-const repaint = (evt, filter, data) => {
-  if (currentfilter !== filter) {
-    const debouncedRender = debounce(() => {
-      clearGallery();
-      reRenderGallery(filter, data);
-    }, RERENDER_DELAY);
-    debouncedRender(filter, data);
-    const currentActiveEl = filterForm.querySelector('.img-filters__button--active');
-    currentActiveEl.classList.remove('img-filters__button--active');
-    evt.target.classList.add('img-filters__button--active');
-    debouncedRender();
-    currentfilter = filter;
-  }
-};
+const debouncedReRender = debounce(reRenderThumbnails, REPAINT_DELAY);
 
 const initFilter = (data) => {
   filtersEl.classList.remove('img-filters--inactive');
-  defaultBtn.addEventListener('click', (evt) => {
-    repaint(evt, FilterEnum.DEFAULT, data);
-  });
-  randomBtn.addEventListener('click', (evt) => {
-    repaint(evt, FilterEnum.RANDOM, data);
-  });
-  discussedBtn.addEventListener('click', (evt) => {
-    repaint(evt, FilterEnum.DISCUSSED, data);
+  filterForm.addEventListener('click', (evt) => {
+    if (!evt.target.classList.contains('img-filters__button') || evt.target === activeButton) {
+      return;
+    }
+    changeClasses(evt.target);
+
+    if (evt.target === defaultBtn) {
+      debouncedReRender(FilterEnum.DEFAULT, data);
+    }
+    if (evt.target === randomBtn) {
+      debouncedReRender(FilterEnum.RANDOM, data);
+    }
+    if (evt.target === discussedBtn) {
+      debouncedReRender(FilterEnum.DISCUSSED, data);
+    }
   });
 };
 

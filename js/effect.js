@@ -96,7 +96,7 @@ const setImageStyle = () => {
 };
 
 const onSliderUpdate = () => {
-  effectLevelElement.value = sliderElement.noUiSlider.get();
+  effectLevelElement.setAttribute('value', sliderElement.noUiSlider.get(true));
   setImageStyle();
 };
 
@@ -107,8 +107,15 @@ const createSlider = ({ min, max, step }) => {
     start: max,
     connect: 'lower',
     format: {
-      to: (value) => Number(value),
-      from: (value) => Number(value),
+      to: function (value) {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
     }
   });
   sliderElement.noUiSlider.on('update', onSliderUpdate);
