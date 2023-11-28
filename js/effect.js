@@ -96,7 +96,7 @@ const setImageStyle = () => {
 };
 
 const onSliderUpdate = () => {
-  effectLevelElement.value = sliderElement.noUiSlider.get();
+  effectLevelElement.setAttribute('value', sliderElement.noUiSlider.get(true));
   setImageStyle();
 };
 
